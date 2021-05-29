@@ -1,7 +1,7 @@
 class DataWithSteps {
   final String title;
   final String subtitle;
-  final List<String> steps;
+  final Map<String,List<String>> steps;
   final String subtitle2;
 
   DataWithSteps({

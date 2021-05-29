@@ -65,44 +65,54 @@ class _NavigationBarState extends State<NavigationBar> {
   }
 
   barItem(text, index, key) {
-    return GestureDetector(
-      onTap: () => onTapItem(key, index),
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          key: key,
-          child: Row(
-            children: [
-              Text(
-                text,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-
-                ),
-              ),
-              Icon(
-                Icons.arrow_drop_down,
+    return InkWell(
+      onTap: () {},
+      onHover: (value) => onHoverItem(key, text, value),
+      child: Container(
+        height: 100,
+        // decoration: BoxDecoration(border: Border.all()),
+        key: key,
+        child: Row(
+          children: [
+            Text(
+              text,
+              style: TextStyle(
                 color: Colors.white,
+                fontWeight: FontWeight.bold,
               ),
-            ],
-          ),
+            ),
+            Icon(
+              Icons.arrow_drop_down,
+              color: Colors.white,
+            ),
+          ],
         ),
       ),
     );
   }
 
-  onTapItem(GlobalKey key, index) {
+  void onHoverItem(GlobalKey key, String index, bool onHover) {
+    print("hovering : $onHover");
     var listProvider = Provider.of<ShowListProvider>(context, listen: false);
-    if (listProvider.showList) {
-      listProvider.changeShowListBool(false);
-    } else {
-      listProvider.setPositionOfWidget(
-        widgetPosition.getSizes(key),
-        widgetPosition.getPositions(key),
-        index,
-      );
-    }
+    listProvider.changeShowListBool(onHover);
+    listProvider.setPositionOfWidget(
+      widgetPosition.getSizes(key),
+      widgetPosition.getPositions(key),
+      index,
+    );
+    // if (listProvider.showSmallList) {
+    //   // listProvider.changeShowListBool(o);
+    //   // listProvider.setPositionOfWidget(
+    //   //   widgetPosition.getSizes(key),
+    //   //   widgetPosition.getPositions(key),
+    //   //   index,
+    //   // );
+    // } else {
+    //
+    //   // print(listProvider.offset_of_widget[0]);
+    //   // print(listProvider.offset_of_widget[1]);
+    //   // print(key.currentWidget.toString());
+    // }
   }
 
   logo() {

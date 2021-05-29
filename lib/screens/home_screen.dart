@@ -1,6 +1,13 @@
+import 'package:ca_website/fssai_registration/screens/fssai_registration_main_page.dart';
+import 'package:ca_website/gst_filing/screens/gst_return_filing.dart';
+import 'package:ca_website/gst_registration/screens/gst_registration_main_page.dart';
+import 'package:ca_website/import_export_code/screens/import_export_code_main_page.dart';
 import 'package:ca_website/llp_registration/screens/llp_company_main_page.dart';
+import 'package:ca_website/msme_registration/screens/msme_registration_main_page.dart';
+import 'package:ca_website/one_person_company_registration/screens/one_person_company_main_page.dart';
 import 'package:ca_website/private_company_registration/screens/private_company_main_page.dart';
 import 'package:ca_website/providers/show_list_provider.dart';
+import 'package:ca_website/reusable/widget_position.dart';
 import 'package:ca_website/screens/first_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -14,7 +21,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  WidgetPosition widgetPosition = WidgetPosition();
   String _type = "HOME";
+  List<GlobalKey> allGlobalKeys = [];
+
+  List<GlobalKey> allSmallGlobalKey = [];
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +41,16 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: Consumer<ShowListProvider>(
         builder: (context, listProvider, _) {
+          var itemIndex = 0;
+          var itemIndex2 = 0;
+          listProvider.listToShow.forEach((element) {
+            allGlobalKeys.add(GlobalKey());
+          });
+          listProvider.extraListToShow.forEach((element) {
+            allSmallGlobalKey.add(GlobalKey());
+          });
+          print(listProvider.showList);
+          print(listProvider.showSmallList);
           return Column(
             children: [
               NavigationBar(),
@@ -37,9 +58,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Scrollbar(
                     showTrackOnHover: true,
-                    child: screenToShow(_type),
+                    isAlwaysShown: true,
+                    child: GestureDetector(
+                      onTap: () {
+                        listProvider.changeShowListBool(false);
+                        listProvider.changeShowSmallListBool(false);
+                        listProvider.notifyAllConsumers();
+                      },
+                      child: screenToShow(_type),
+                    ),
                   ),
-                  listProvider.showList
+                  listProvider.showList || listProvider.showSmallList
                       ? Positioned(
                           top: 0.0,
                           left: listProvider.offset_of_widget[0],
@@ -50,21 +79,83 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: ListView(
                               children: listProvider.listToShow.map<Widget>(
                                 (e) {
-                                  return ListTile(
-                                    title: Text(
-                                      "$e",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 10,
-                                      ),
+                                  // print("kbsjkbjsbc");
+                                  itemIndex++;
+                                  return InkWell(
+                                    onTap: () {},
+                                    onHover: (value) => onHoverSmallItem(
+                                      allGlobalKeys[itemIndex - 1],
+                                      e,
+                                      value,
+                                      itemIndex,
                                     ),
-                                    onTap: () {
-                                      setState(() {
-                                        _type = e;
-                                      });
-                                      listProvider.changeShowListBool(false);
-                                    },
+                                    child: ListTile(
+                                      key: allGlobalKeys[itemIndex - 1],
+                                      title: Text(
+                                        "$e",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 10,
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        setState(() {
+                                          _type = e;
+                                        });
+                                        // listProvider.changeShowListBool(false);
+                                      },
+                                    ),
+                                  );
+                                },
+                              ).toList(),
+                            ),
+                          ),
+                        )
+                      : SizedBox(),
+                  listProvider.showSmallList
+                      ? Positioned(
+                          top: 0.0,
+                          left: listProvider.offset_of_small_widget.length == 0
+                              ? 0.0
+                              : listProvider.offset_of_small_widget[0] + 201,
+                          child: Container(
+                            width: 200,
+                            height: listProvider.extraListToShow.length * 50.0,
+                            color: Colors.black,
+                            child: ListView(
+                              children:
+                                  listProvider.extraListToShow.map<Widget>(
+                                (e) {
+                                  // print("hvvkhhkvk");
+                                  itemIndex2++;
+                                  return InkWell(
+                                    onTap: () {},
+                                    onHover: (value) => onHoverSmallestItem(
+                                      allSmallGlobalKey[itemIndex2 - 1],
+                                      e,
+                                      value,
+                                    ),
+                                    child: ListTile(
+                                      title: Text(
+                                        "$e",
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 10,
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        setState(() {
+                                          _type = e;
+                                          listProvider
+                                              .changeShowListBool(false);
+                                          listProvider
+                                              .changeShowSmallListBool(false);
+                                        });
+                                        // listProvider.changeShowListBool(false);
+                                      },
+                                    ),
                                   );
                                 },
                               ).toList(),
@@ -81,16 +172,71 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  onHoverSmallestItem(GlobalKey key, String index, bool onHover) {
+    print("hovering smallest items : $onHover");
+    var listProvider = Provider.of<ShowListProvider>(context, listen: false);
+    // listProvider.changeShowListBool(onHover);
+    listProvider.changeSelectedString(index);
+    listProvider.changeShowListBool(onHover);
+    listProvider.changeShowSmallListBool(onHover);
+  }
+
+  void onHoverSmallItem(
+      GlobalKey key, String index, bool onHover, int itemIndex) {
+    print("hovering small items : $onHover");
+    var listProvider = Provider.of<ShowListProvider>(context, listen: false);
+
+    listProvider.changeSelectedString(index);
+    listProvider.changeShowListBool(onHover);
+
+    if (index == "FIRM REGISTRATION" || index == "COMPANY REGISTRATION") {
+      // listProvider.changeShowListBool(onHover);
+
+      listProvider.changeShowSmallListBool(onHover);
+
+      // listProvider.setPositionOfWidget(
+      //   widgetPosition.getSizes(key),
+      //   widgetPosition.getPositions(key),
+      //   index,
+      // );
+      var pos = widgetPosition.getPositions(key);
+
+      listProvider.setPositionOfSmallWidget(
+        widgetPosition.getSizes(key),
+        [pos[0], pos[1] - (itemIndex * 50)],
+        listProvider.hoveringString,
+      );
+    }
+  }
+
   screenToShow(type) {
     switch (type) {
       case "HOME":
         return FirstScreen();
         break;
-      case "COMPANY REGISTRATION":
+      case "PRIVATE LIMITED COMPANY REGISTRATION":
         return PrivateCompanyMainPage();
         break;
-      case "FIRM REGISTRATION":
+      case "LLP REGISTRATION":
         return LlpRegistrationMainPage();
+        break;
+      case "ONE PERSON COMPANY REGISTRATION":
+        return OnePersonCompanyRegistrationMainPage();
+        break;
+      case "GST REGISTRATION":
+        return GstRegistrationMainPage();
+        break;
+      case "GST RETURN FILING":
+        return GstReturnFilingMainPage();
+        break;
+      case "MSME REGISTRATION":
+        return MsmeRegistrationMainPage();
+        break;
+      case "IMPORT EXPORT CODE":
+        return ImportExportCodeMainPage();
+        break;
+      case "FSSAI REGISTRATION":
+        return FssaiRegistrationMainPage();
         break;
     }
   }

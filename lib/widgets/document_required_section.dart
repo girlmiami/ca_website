@@ -6,9 +6,10 @@ import '../main.dart';
 
 // ignore: must_be_immutable
 class DocumentRequiredSection extends StatelessWidget {
+  final title;
   final data;
 
-  DocumentRequiredSection({Key key, this.data}) : super(key: key);
+  DocumentRequiredSection({Key key, this.data, this.title}) : super(key: key);
 
   int index = 0;
   List<String> points = [];
@@ -35,8 +36,7 @@ class DocumentRequiredSection extends StatelessWidget {
       child: Column(
         children: [
           SectionTitle(
-            title:
-                "Documents required for Private Limited Company Registration",
+            title: title,
           ),
           data["description"] == ""
               ? SizedBox()

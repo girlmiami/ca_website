@@ -1,4 +1,5 @@
 import 'package:ca_website/models/singleAdvantage.dart';
+import 'package:ca_website/small_widgets/description_widget.dart';
 import 'package:ca_website/widgets/section_title.dart';
 import 'package:ca_website/widgets/single_advantage_widget.dart';
 import 'package:flutter/material.dart';
@@ -8,9 +9,15 @@ import '../main.dart';
 // ignore: must_be_immutable
 class AdvantagesSection extends StatelessWidget {
   final String title;
+  final String subtitle;
   final data;
 
-  AdvantagesSection({Key key, this.title, this.data}) : super(key: key);
+  AdvantagesSection({
+    Key key,
+    this.title,
+    this.data,
+    this.subtitle,
+  }) : super(key: key);
 
   int index = 0;
 
@@ -27,6 +34,11 @@ class AdvantagesSection extends StatelessWidget {
           SectionTitle(
             title: title,
           ),
+          subtitle == null
+              ? SizedBox()
+              : DescriptionWidget(
+                  text: subtitle,
+                ),
           ...data.map<Widget>(
             (advantage) {
               index++;

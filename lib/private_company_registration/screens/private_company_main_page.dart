@@ -78,16 +78,19 @@ class _PrivateCompanyMainPageState extends State<PrivateCompanyMainPage> {
               title: "Private Limited Company Registration Process",
               subtitle:
                   "Simple 5 Steps Process to Register Your Private Limited Company in India",
-              steps: [
-                "Apply for the Digital Signature Certificate (DSC) for all the Person who’s are will be director in the Private Limited Company.",
-                "Apply for the DIN Registration for all the Person who’s will be director in the Pvt Ltd Company.",
-                "Now Just check about the Private Limited Company Name availability on the MCA Portal & Apply for the Name approval of the Company. with RUN Form.",
-                "Once name has been approved, Proceed with the SPIC(INC 32) Private Limited Incorporation Form with the E-MoA & E-AOA of the Pvt Ltd Company.",
-                "Now Apply for the PAN & TAN Application for the Private Limited Company which is issued with he Certificate of Incorporation.",
-              ],
+              steps: {
+                "Apply for the Digital Signature Certificate (DSC) for all the Person who’s are will be director in the Private Limited Company.": [],
+                "Apply for the DIN Registration for all the Person who’s will be director in the Pvt Ltd Company.": [],
+                "Now Just check about the Private Limited Company Name availability on the MCA Portal & Apply for the Name approval of the Company. with RUN Form.": [],
+                "Once name has been approved, Proceed with the SPIC(INC 32) Private Limited Incorporation Form with the E-MoA & E-AOA of the Pvt Ltd Company.": [],
+                "Now Apply for the PAN & TAN Application for the Private Limited Company which is issued with he Certificate of Incorporation.": [],
+              },
             ),
+            showBackgroundColor: false,
+            showButton: false,
           ),
           DocumentRequiredSection(
+            title: "Documents required for Private Limited Company Registration",
             data: PrivateCompanyData.documentRequired,
           ),
           SectionWithSteps(
@@ -95,15 +98,17 @@ class _PrivateCompanyMainPageState extends State<PrivateCompanyMainPage> {
               title: "Benefits of Private Limited Company Registration",
               subtitle:
                   "Below are the benefits of the private limited company –",
-              steps: [
-                "Easily Setup and recommend to Growing Startups.",
-                "Limited Liability for Members.",
-                "More Credibility as Compare to others.",
-                "Easily raise funds from Investors.",
-                "ESOP Option are available to motivated Employees.",
-                "Name Protection available.",
-              ],
+              steps: {
+                "Easily Setup and recommend to Growing Startups.": [],
+                "Limited Liability for Members.": [],
+                "More Credibility as Compare to others.": [],
+                "Easily raise funds from Investors.": [],
+                "ESOP Option are available to motivated Employees.": [],
+                "Name Protection available.": [],
+              },
             ),
+            showBackgroundColor: false,
+            showButton: false,
           ),
           SectionWithDescriptionOnly(
             data: DataWithDescription(

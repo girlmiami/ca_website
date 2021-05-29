@@ -17,7 +17,7 @@ class StaticData {
 
   static List<String> gstPortalTypes = [
     "GST REGISTRATION",
-    "RETURN FILING",
+    "GST RETURN FILING",
   ];
 
   static List<String> businessLicenseType = [

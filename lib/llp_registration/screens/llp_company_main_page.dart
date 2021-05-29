@@ -1,14 +1,10 @@
 import 'package:ca_website/models/dataWithDescription.dart';
 import 'package:ca_website/models/dataWithSteps.dart';
-import 'package:ca_website/models/question.dart';
 import 'package:ca_website/reusable/llp_data.dart';
-import 'package:ca_website/reusable/private_company_data.dart';
 import 'package:ca_website/widgets/advantages_section.dart';
 import 'package:ca_website/widgets/book_consultancy.dart';
-import 'package:ca_website/widgets/cost_involved_section.dart';
 import 'package:ca_website/widgets/document_required_section.dart';
 import 'package:ca_website/widgets/faq_section.dart';
-import 'package:ca_website/widgets/how_to_section.dart';
 import 'package:ca_website/widgets/registration_fees.dart';
 import 'package:ca_website/widgets/section_with_description_only.dart';
 import 'package:ca_website/widgets/section_with_steps.dart';
@@ -24,21 +20,6 @@ class LlpRegistrationMainPage extends StatefulWidget {
 }
 
 class _LlpRegistrationMainPageState extends State<LlpRegistrationMainPage> {
-  List<Question> allQues = [];
-
-  @override
-  void initState() {
-    PrivateCompanyData.privateRegistrationQuestionsMap.keys
-        .toList()
-        .forEach((key) {
-      allQues.add(Question(
-        question: key,
-        answer: PrivateCompanyData.privateRegistrationQuestionsMap[key],
-      ));
-    });
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -72,11 +53,15 @@ class _LlpRegistrationMainPageState extends State<LlpRegistrationMainPage> {
               title: "LLP Incorporation Rules",
               subtitle:
                   "Simple 5 Steps Process to Register Your Private Limited Company in India",
-              steps: [
-                "Minimum required 2 partners to create a LLP Incorporation.",
-                "There is No Authorised share capital concept like private limited company registration. so you can start with any amount of the share capital of the LLP Partners"
-              ],
+              steps: {
+                "Minimum required 2 partners to create a LLP Incorporation.":
+                    [],
+                "There is No Authorised share capital concept like private limited company registration. so you can start with any amount of the share capital of the LLP Partners":
+                    [],
+              },
             ),
+            showBackgroundColor: false,
+            showButton: false,
           ),
           RegistrationFeesSection(
             data: LlpData.llpRegistrationFees,
@@ -92,21 +77,27 @@ class _LlpRegistrationMainPageState extends State<LlpRegistrationMainPage> {
               title: "LLP Incorporation Procedure",
               subtitle:
                   "LLP Incorporation have complex process by the Govt but with the help of myonlineca you can simplified in Only 3 Steps.",
-              steps: [
-                "Simply Fill-Up LLP Registration Application Form and Fill-Up Basic Details of Business.",
-                "Make the Professional Fee 1st Installment 1999/- INR Only via Cards/Netbanking/UPI etc.",
-                "Get Instant Confirmation Email & Call with the Assign Dedicated CA which helps you to Start your LLP Registration Process."
-              ],
+              steps: {
+                "Simply Fill-Up LLP Registration Application Form and Fill-Up Basic Details of Business.":
+                    [],
+                "Make the Professional Fee 1st Installment 1999/- INR Only via Cards/Netbanking/UPI etc.":
+                    [],
+                "Get Instant Confirmation Email & Call with the Assign Dedicated CA which helps you to Start your LLP Registration Process.":
+                    [],
+              },
             ),
+            showBackgroundColor: false,
+            showButton: false,
           ),
           DocumentRequiredSection(
+            title: "Documents Required for LLP Registration",
             data: LlpData.documentRequired,
           ),
           SectionWithDescriptionOnly(
             data: DataWithDescription(
               title: "Feature of LLP Registration",
               description:
-                  "​​There are many features of LLP. An LLP is a body corporate with separate legal entity from its partners which means it can sue or be sued in its own name. An LLP will be governed by LLP agreement so partner’s duties will be decided under Partnership Agreement and mutual rights also governed by the LLP. An LLP cannot be started with sole owner, every LLP should have at least two partners in it. It is also liable to the extent of its assets which means partner’s liability will be limited and a partner will liable extent of agreed contribution in the agreement and a partner is not liable for other partner’s negligence. As per the rules and regulation of MCA only designated partner are responsible for compliance. If you are running a company and want to convert into an LLP then you can do this. So as you can see that LLP has many features and you can finding up an LLP whenever you want or in its time.",
+                  "There are many features of LLP. An LLP is a body corporate with separate legal entity from its partners which means it can sue or be sued in its own name. An LLP will be governed by LLP agreement so partner’s duties will be decided under Partnership Agreement and mutual rights also governed by the LLP. An LLP cannot be started with sole owner, every LLP should have at least two partners in it. It is also liable to the extent of its assets which means partner’s liability will be limited and a partner will liable extent of agreed contribution in the agreement and a partner is not liable for other partner’s negligence. As per the rules and regulation of MCA only designated partner are responsible for compliance. If you are running a company and want to convert into an LLP then you can do this. So as you can see that LLP has many features and you can finding up an LLP whenever you want or in its time.",
             ),
           ),
           SectionWithDescriptionOnly(
@@ -121,26 +112,39 @@ class _LlpRegistrationMainPageState extends State<LlpRegistrationMainPage> {
               title: "LLP Registration Process",
               subtitle:
                   "In October 2018 an amendment came into force in which the process of LLP registration was updated. As per the new rules and regulation you can file your incorporation form through online mode for which you have to follow the following steps.",
-              steps: [
-                "First step of new registration process of LLP is to obtain Digital signature certificate (DSC) for proposed director and without obtaining DSC you cannot proceed further so obtaining a DSC is important. A DSC is a very important document for an LLP because you have to mention DSC when you filecompliances. You cannot file an E form without DSC. So you have to first obtain the DSC.",
-                "After obtaining a DSC, you have to reserve firm’s name under LLP-Run services. Now amendment has come into force so there is no requirement of form 1, earlier everyone has to file form 1 for reservation of name but now you have to reserve your firm’s name under LLP-Run services.If you want to use services of LLP-RUN then you have to create an account on the website then you have to click on the LLP-RUN web service then you can request for reservation of name. You can request 2 names for your LLP so registration on one name will be done if it is available. During requesting on LLP-RUN service you need to pay required fee for reservation of name.",
-                "There is another procedure also available for which you can file the FiLLiP form. The new amendment introduced FiLLiP form by filing this form you don’t have to reserve your LLP’s name under LLP run services. There is no requirement of different-different forms. FiLLiP is an incorporation form so you can fill this. After filing this form authority will check your form along with documents and if everything goes rights then you will get your incorporation number. After incorporation of your firm you have to file your LLP agreement within 30 days of its incorporation.",
-              ],
+              steps: {
+                "First step of new registration process of LLP is to obtain Digital signature certificate (DSC) for proposed director and without obtaining DSC you cannot proceed further so obtaining a DSC is important. A DSC is a very important document for an LLP because you have to mention DSC when you filecompliances. You cannot file an E form without DSC. So you have to first obtain the DSC.":
+                    [],
+                "After obtaining a DSC, you have to reserve firm’s name under LLP-Run services. Now amendment has come into force so there is no requirement of form 1, earlier everyone has to file form 1 for reservation of name but now you have to reserve your firm’s name under LLP-Run services.If you want to use services of LLP-RUN then you have to create an account on the website then you have to click on the LLP-RUN web service then you can request for reservation of name. You can request 2 names for your LLP so registration on one name will be done if it is available. During requesting on LLP-RUN service you need to pay required fee for reservation of name.":
+                    [],
+                "There is another procedure also available for which you can file the FiLLiP form. The new amendment introduced FiLLiP form by filing this form you don’t have to reserve your LLP’s name under LLP run services. There is no requirement of different-different forms. FiLLiP is an incorporation form so you can fill this. After filing this form authority will check your form along with documents and if everything goes rights then you will get your incorporation number. After incorporation of your firm you have to file your LLP agreement within 30 days of its incorporation.":
+                    [],
+              },
             ),
+            showBackgroundColor: false,
+            showButton: false,
           ),
           SectionWithSteps(
             data: DataWithSteps(
                 title: "LLP Registration Cost",
-                steps: [
-                  "Director Partner Identification Number ( DPIN/DIN)- Costing for DIN 1000 Rupees on 2 Partners. its valid for Lifetime.Its just like UserId for the Partner.",
-                  "Digital Signature (DSC)– Costing vary from 2000 Rupees on 2 Partners. Its made by Sify, Emudra and some other companies and used for signing and filing forms during registration",
-                  "Application for Name Reservation- Costing is 500 Rupees. Its filed for reserve your LLP Name.",
-                  "Government Charges including Stamp Duty Costing around 750 Rupees.",
-                  "Preparing LLP Agreement by professional costing around 250 Rupees.",
-                  "Preparing LLP Partner Consent by Professional costing around 250 Rupees.",
-                ],
+                steps: {
+                  "Director Partner Identification Number ( DPIN/DIN)- Costing for DIN 1000 Rupees on 2 Partners. its valid for Lifetime.Its just like UserId for the Partner.":
+                      [],
+                  "Digital Signature (DSC)– Costing vary from 2000 Rupees on 2 Partners. Its made by Sify, Emudra and some other companies and used for signing and filing forms during registration":
+                      [],
+                  "Application for Name Reservation- Costing is 500 Rupees. Its filed for reserve your LLP Name.":
+                      [],
+                  "Government Charges including Stamp Duty Costing around 750 Rupees.":
+                      [],
+                  "Preparing LLP Agreement by professional costing around 250 Rupees.":
+                      [],
+                  "Preparing LLP Partner Consent by Professional costing around 250 Rupees.":
+                      [],
+                },
                 subtitle2:
                     "Total Government Expenses around 4750 rupees to 5000 Rupees.\n\nApart from Government Expense there are professional charges which very from 4000 to 6000/- INR professional to professional. MyOnlineCA always provide to you better competitive rates."),
+            showBackgroundColor: false,
+            showButton: false,
           ),
           SectionWithDescriptionOnly(
             data: DataWithDescription(

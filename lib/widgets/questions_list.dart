@@ -1,7 +1,6 @@
 import 'package:ca_website/main.dart';
 import 'package:ca_website/models/question.dart';
 import 'package:flutter/material.dart';
-import 'package:styled_text/styled_text.dart';
 
 class QuestionList extends StatefulWidget {
   final List<Question> allQuestions;

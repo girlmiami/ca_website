@@ -57,6 +57,7 @@ class TopSection extends StatelessWidget {
               fontSize: 20,
               fontWeight: FontWeight.w500,
             ),
+            textAlign: TextAlign.center,
           ),
           Text(
             smallTextLine2,
@@ -65,6 +66,7 @@ class TopSection extends StatelessWidget {
               fontSize: 20,
               fontWeight: FontWeight.w500,
             ),
+            textAlign: TextAlign.center,
           ),
           SizedBox(height: 10),
           showButton

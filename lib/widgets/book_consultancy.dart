@@ -50,6 +50,10 @@ class _BookConsultancyState extends State<BookConsultancy> {
         return PrivateCompanyForm();
       case "LLP Registration":
         return PrivateCompanyForm();
+      case "One Person Company Registration":
+        return PrivateCompanyForm();
+      case "Gst Registration":
+        return PrivateCompanyForm();
       default:
         return BookConsultantForm();
     }
