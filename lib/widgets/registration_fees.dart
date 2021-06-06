@@ -95,47 +95,61 @@ class _RegistrationFeesSectionState extends State<RegistrationFeesSection> {
                 color: Colors.white,
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 10),
-              child: Text(
-                "Include : ",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            ...registrationData.include.map<Widget>((item) {
-              indexInclude++;
-              return Text(
-                "#$indexInclude " + item,
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.white,
-                ),
-              );
-            }).toList(),
-            Padding(
-              padding: const EdgeInsets.only(top: 10, bottom: 10),
-              child: Text(
-                "Free with above package : ",
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-            ...registrationData.freePackage.map<Widget>((item) {
-              indexFree++;
-              return Text(
-                "#$indexFree " + item,
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.white,
-                ),
-              );
-            }).toList(),
+            registrationData.include.length == 0
+                ? SizedBox()
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10, bottom: 10),
+                        child: Text(
+                          "Include : ",
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      ...registrationData.include.map<Widget>((item) {
+                        indexInclude++;
+                        return Text(
+                          "#$indexInclude " + item,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
+                        );
+                      }).toList(),
+                    ],
+                  ),
+            registrationData.freePackage.length == 0
+                ? SizedBox()
+                : Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10, bottom: 10),
+                        child: Text(
+                          "Free with above package : ",
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      ...registrationData.freePackage.map<Widget>((item) {
+                        indexFree++;
+                        return Text(
+                          "#$indexFree " + item,
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
+                        );
+                      }).toList(),
+                    ],
+                  ),
             SizedBox(
               height: 20,
             ),

@@ -24,6 +24,11 @@ class SingleHowToItemWidget extends StatelessWidget {
           item.points == null || item.points.length == 0
               ? SizedBox()
               : points(item.points),
+          item.note == "" || item.note == null
+              ? SizedBox()
+              : DescriptionWidget(
+                  text: item.note,
+                ),
         ],
       ),
     );

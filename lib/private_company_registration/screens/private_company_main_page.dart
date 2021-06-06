@@ -143,7 +143,7 @@ class _PrivateCompanyMainPageState extends State<PrivateCompanyMainPage> {
             title: "FAQ Series on Private Limited Company Registration",
             data: PrivateCompanyData.faqQuestions,
           ),
-          HowToSection(),
+          HowToSection(data: PrivateCompanyData.howToData,),
         ],
       ),
     );

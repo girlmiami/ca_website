@@ -36,8 +36,7 @@ class StaticData {
 
   static List<String> iprServiceTypes = [
     "PATENT",
-    "TRADEMARK",
-    "REGISTRATION",
+    "TRADEMARK REGISTRATION",
   ];
 
   static List<String> supportTypes = [

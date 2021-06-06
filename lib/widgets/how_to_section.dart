@@ -7,11 +7,14 @@ import '../main.dart';
 
 // ignore: must_be_immutable
 class HowToSection extends StatelessWidget {
+  final data;
+
+  HowToSection({Key key, this.data}) : super(key: key);
+
   int index = 0;
 
   @override
   Widget build(BuildContext context) {
-    print("faq section");
     return Container(
       padding: EdgeInsets.only(
         top: 20,
@@ -23,7 +26,7 @@ class HowToSection extends StatelessWidget {
           SectionTitle(
             title: "How to Register a Pvt Ltd Company in India",
           ),
-          ...PrivateCompanyData.howToData.map<Widget>(
+          ...data.map<Widget>(
             (data) {
               List<String> points = [];
               data["points"].forEach((p) {

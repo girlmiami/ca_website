@@ -1,11 +1,18 @@
+import 'package:ca_website/company_annual_filing/screens/company_annual_filing_main_page.dart';
 import 'package:ca_website/fssai_registration/screens/fssai_registration_main_page.dart';
 import 'package:ca_website/gst_filing/screens/gst_return_filing.dart';
 import 'package:ca_website/gst_registration/screens/gst_registration_main_page.dart';
+import 'package:ca_website/gumasta_registration/screens/gumasta_license_registration_main_page.dart';
 import 'package:ca_website/import_export_code/screens/import_export_code_main_page.dart';
+import 'package:ca_website/income_tax_efiling/screens/income_tax_efiling_main_page.dart';
+import 'package:ca_website/iso_certificate/screens/iso_certificate_main_page.dart';
+import 'package:ca_website/llp_filing/screens/llp_filing_main_page.dart';
 import 'package:ca_website/llp_registration/screens/llp_company_main_page.dart';
 import 'package:ca_website/msme_registration/screens/msme_registration_main_page.dart';
 import 'package:ca_website/one_person_company_registration/screens/one_person_company_main_page.dart';
+import 'package:ca_website/partnership_registration/screens/partnership_registration_main_page.dart';
 import 'package:ca_website/private_company_registration/screens/private_company_main_page.dart';
+import 'package:ca_website/proprietorship_registration/screens/proprietorship_registration_main_page.dart';
 import 'package:ca_website/providers/show_list_provider.dart';
 import 'package:ca_website/reusable/widget_position.dart';
 import 'package:ca_website/screens/first_screen.dart';
@@ -22,10 +29,18 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   WidgetPosition widgetPosition = WidgetPosition();
+
+  // ScrollController _scrollController = ScrollController(initialScrollOffset: 0.0);
   String _type = "HOME";
   List<GlobalKey> allGlobalKeys = [];
 
   List<GlobalKey> allSmallGlobalKey = [];
+
+  // @override
+  // void dispose() {
+  //   _scrollController.dispose();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -49,121 +64,131 @@ class _HomeScreenState extends State<HomeScreen> {
           listProvider.extraListToShow.forEach((element) {
             allSmallGlobalKey.add(GlobalKey());
           });
-          print(listProvider.showList);
-          print(listProvider.showSmallList);
+          // print(listProvider.showList);
+          // print(listProvider.showSmallList);
           return Column(
             children: [
               NavigationBar(),
-              Stack(
-                children: [
-                  Scrollbar(
-                    showTrackOnHover: true,
-                    isAlwaysShown: true,
-                    child: GestureDetector(
-                      onTap: () {
-                        listProvider.changeShowListBool(false);
-                        listProvider.changeShowSmallListBool(false);
-                        listProvider.notifyAllConsumers();
-                      },
-                      child: screenToShow(_type),
+              Container(
+                height: screenHeight - 100,
+                child: Stack(
+                  children: [
+                    Scrollbar(
+                      // controller: _scrollController,
+                      showTrackOnHover: true,
+                      // isAlwaysShown: true,
+                      child: GestureDetector(
+                        onTap: () {
+                          listProvider.changeShowListBool(false);
+                          listProvider.changeShowSmallListBool(false);
+                          listProvider.notifyAllConsumers();
+                        },
+                        child: screenToShow(_type),
+                      ),
                     ),
-                  ),
-                  listProvider.showList || listProvider.showSmallList
-                      ? Positioned(
-                          top: 0.0,
-                          left: listProvider.offset_of_widget[0],
-                          child: Container(
-                            width: 200,
-                            height: listProvider.listToShow.length * 50.0,
-                            color: Colors.black,
-                            child: ListView(
-                              children: listProvider.listToShow.map<Widget>(
-                                (e) {
-                                  // print("kbsjkbjsbc");
-                                  itemIndex++;
-                                  return InkWell(
-                                    onTap: () {},
-                                    onHover: (value) => onHoverSmallItem(
-                                      allGlobalKeys[itemIndex - 1],
-                                      e,
-                                      value,
-                                      itemIndex,
-                                    ),
-                                    child: ListTile(
-                                      key: allGlobalKeys[itemIndex - 1],
-                                      title: Text(
-                                        "$e",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 10,
+                    listProvider.showList || listProvider.showSmallList
+                        ? Positioned(
+                            top: 0.0,
+                            left: listProvider.offset_of_widget[0],
+                            child: Container(
+                              width: 200,
+                              height: listProvider.listToShow.length * 50.0,
+                              color: Colors.black,
+                              child: ListView(
+                                children: listProvider.listToShow.map<Widget>(
+                                  (e) {
+                                    // print("kbsjkbjsbc");
+                                    itemIndex++;
+                                    return InkWell(
+                                      onTap: () {},
+                                      onHover: (value) => onHoverSmallItem(
+                                        allGlobalKeys[itemIndex - 1],
+                                        e,
+                                        value,
+                                        itemIndex,
+                                      ),
+                                      child: Material(
+                                        color: Colors.black,
+                                        child: ListTile(
+                                          hoverColor: Colors.green[900],
+                                          key: allGlobalKeys[itemIndex - 1],
+                                          title: Text(
+                                            "$e",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 10,
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            setState(() {
+                                              _type = e;
+                                            });
+                                            // listProvider.changeShowListBool(false);
+                                          },
                                         ),
                                       ),
-                                      onTap: () {
-                                        setState(() {
-                                          _type = e;
-                                        });
-                                        // listProvider.changeShowListBool(false);
-                                      },
-                                    ),
-                                  );
-                                },
-                              ).toList(),
+                                    );
+                                  },
+                                ).toList(),
+                              ),
                             ),
-                          ),
-                        )
-                      : SizedBox(),
-                  listProvider.showSmallList
-                      ? Positioned(
-                          top: 0.0,
-                          left: listProvider.offset_of_small_widget.length == 0
-                              ? 0.0
-                              : listProvider.offset_of_small_widget[0] + 201,
-                          child: Container(
-                            width: 200,
-                            height: listProvider.extraListToShow.length * 50.0,
-                            color: Colors.black,
-                            child: ListView(
-                              children:
-                                  listProvider.extraListToShow.map<Widget>(
-                                (e) {
-                                  // print("hvvkhhkvk");
-                                  itemIndex2++;
-                                  return InkWell(
-                                    onTap: () {},
-                                    onHover: (value) => onHoverSmallestItem(
-                                      allSmallGlobalKey[itemIndex2 - 1],
-                                      e,
-                                      value,
-                                    ),
-                                    child: ListTile(
-                                      title: Text(
-                                        "$e",
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 10,
-                                        ),
+                          )
+                        : SizedBox(),
+                    listProvider.showSmallList
+                        ? Positioned(
+                            top: 0.0,
+                            left: listProvider.offset_of_small_widget.length ==
+                                    0
+                                ? 0.0
+                                : listProvider.offset_of_small_widget[0] + 201,
+                            child: Container(
+                              width: 200,
+                              height:
+                                  listProvider.extraListToShow.length * 50.0,
+                              color: Colors.black,
+                              child: ListView(
+                                children:
+                                    listProvider.extraListToShow.map<Widget>(
+                                  (e) {
+                                    // print("hvvkhhkvk");
+                                    itemIndex2++;
+                                    return InkWell(
+                                      onTap: () {},
+                                      onHover: (value) => onHoverSmallestItem(
+                                        allSmallGlobalKey[itemIndex2 - 1],
+                                        e,
+                                        value,
                                       ),
-                                      onTap: () {
-                                        setState(() {
-                                          _type = e;
-                                          listProvider
-                                              .changeShowListBool(false);
-                                          listProvider
-                                              .changeShowSmallListBool(false);
-                                        });
-                                        // listProvider.changeShowListBool(false);
-                                      },
-                                    ),
-                                  );
-                                },
-                              ).toList(),
+                                      child: ListTile(
+                                        title: Text(
+                                          "$e",
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 10,
+                                          ),
+                                        ),
+                                        onTap: () {
+                                          setState(() {
+                                            _type = e;
+                                            listProvider
+                                                .changeShowListBool(false);
+                                            listProvider
+                                                .changeShowSmallListBool(false);
+                                          });
+                                          // listProvider.changeShowListBool(false);
+                                        },
+                                      ),
+                                    );
+                                  },
+                                ).toList(),
+                              ),
                             ),
-                          ),
-                        )
-                      : SizedBox(),
-                ],
+                          )
+                        : SizedBox(),
+                  ],
+                ),
               ),
             ],
           );
@@ -173,7 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   onHoverSmallestItem(GlobalKey key, String index, bool onHover) {
-    print("hovering smallest items : $onHover");
+    // print("hovering smallest items : $onHover");
     var listProvider = Provider.of<ShowListProvider>(context, listen: false);
     // listProvider.changeShowListBool(onHover);
     listProvider.changeSelectedString(index);
@@ -183,7 +208,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void onHoverSmallItem(
       GlobalKey key, String index, bool onHover, int itemIndex) {
-    print("hovering small items : $onHover");
+    // print("hovering small items : $onHover");
     var listProvider = Provider.of<ShowListProvider>(context, listen: false);
 
     listProvider.changeSelectedString(index);
@@ -237,6 +262,27 @@ class _HomeScreenState extends State<HomeScreen> {
         break;
       case "FSSAI REGISTRATION":
         return FssaiRegistrationMainPage();
+        break;
+      case "GUMASTA LICENSE":
+        return GumastaLicenseRegistrationMainPage();
+        break;
+      case "ISO CERTIFICATE":
+        return IsoCertificationMainPage();
+        break;
+      case "INCOME TAX FILING":
+        return IncomeTaxEFilingMainPage();
+        break;
+      case "LLP ANNUAL FILING":
+        return LlpFilingMainPage();
+        break;
+      case "COMPANY ANNUAL FILING":
+        return CompanyAnnualFilingMainPage();
+        break;
+      case "PROPRIETORSHIP REGISTRATION":
+        return ProprietorshipRegistrationMainPage();
+        break;
+      case "PARTNERSHIP REGISTRATION":
+        return PartnershipRegistrationMainPage();
         break;
     }
   }

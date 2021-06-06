@@ -38,13 +38,13 @@ class DocumentRequiredSection extends StatelessWidget {
           SectionTitle(
             title: title,
           ),
-          data["description"] == ""
+          data["description"] == "" || data["description"] == null
               ? SizedBox()
               : DescriptionWidget(
                   text: data["description"],
                 ),
           pointsWidget(),
-          data["description2"] == ""
+          data["description2"] == "" || data["description2"] == null
               ? SizedBox()
               : DescriptionWidget(
                   text: data["description2"],
